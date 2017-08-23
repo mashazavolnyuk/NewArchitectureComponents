@@ -1,15 +1,23 @@
 package com.mashazavolnyuk.newarchitecturecomponents;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.mashazavolnyuk.newarchitecturecomponents.viewmodel.MyViewModel;
+
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +34,18 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+            test();
+
     }
 
+    private void test()  {
+        Log.d(TAG,"oncreate");
+        MyViewModel model = ViewModelProviders.of(this).get(MyViewModel.class);
+        List<User> users = model.getUsers().getValue();
+        Log.d(TAG,"size"+users.size());
+        for(User user:users){
+            Log.d(TAG,"User"+user.name);}
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
